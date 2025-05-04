@@ -33,45 +33,38 @@ const JPEG_QUALITY = 80;
 const PNG_QUALITY = 80;
 const WEBP_QUALITY = 75;
 
-async function optimizeImage(inputPath, outputPath, options = {}) {
+async function optimizeImage(inputPath, outputPath) {
   try {
-    const image = sharp(inputPath);
-
-    // Apply optimizations
-    await image
-      .resize(options.width, options.height, {
-        fit: 'inside',
-        withoutEnlargement: true,
-      })
+    const inputBuffer = fs.readFileSync(inputPath);
+    await sharp(inputBuffer)
       .webp({ quality: 80 })
       .toFile(outputPath);
-
     console.log(`Optimized: ${outputPath}`);
   } catch (error) {
-    console.error(`Error optimizing ${inputPath}:`, error);
+    console.error(`Error optimizing ${inputPath}: ${error.message}`);
+    // Copy the original file if optimization fails
+    fs.copyFileSync(inputPath, outputPath);
+    console.log(`Copied original: ${outputPath}`);
   }
 }
 
 async function processDirectory(dir) {
   const files = fs.readdirSync(dir);
-
+  
   for (const file of files) {
-    const filePath = path.join(dir, file);
-    const stat = fs.statSync(filePath);
-
+    const fullPath = path.join(dir, file);
+    const stat = fs.statSync(fullPath);
+    
     if (stat.isDirectory()) {
-      await processDirectory(filePath);
-    } else if (/\.(jpg|jpeg|png|gif)$/i.test(file)) {
-      const outputPath = filePath.replace(/\.(jpg|jpeg|png|gif)$/i, '.webp');
-      await optimizeImage(filePath, outputPath, {
-        width: 1920,
-        height: 1080,
-      });
+      await processDirectory(fullPath);
+    } else if (stat.isFile() && /\.(jpg|jpeg|png)$/i.test(file)) {
+      const outputPath = fullPath.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+      await optimizeImage(fullPath, outputPath);
     }
   }
 }
 
-// Process all images in the public directory
-processDirectory(PUBLIC_DIR)
+// Start processing from the public directory
+processDirectory(path.join(__dirname, '..', 'public'))
   .then(() => console.log('Image optimization complete'))
   .catch(error => console.error('Error during optimization:', error));

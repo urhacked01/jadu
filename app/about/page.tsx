@@ -80,7 +80,7 @@ export default function AboutPage() {
                 A Legacy of Excellence
               </p>
               <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                Since 1995, we've been committed to providing the best two-wheeler experience in the
+                Since 1995, we&apos;ve been committed to providing the best two-wheeler experience in the
                 region.
               </p>
             </div>

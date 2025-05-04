@@ -854,6 +854,4 @@ function TestimonialsPageContent() {
   );
 }
 
-// Wrap the component with our translate compatibility wrapper
-const TestimonialsPage = withTranslateCompatibility(TestimonialsPageContent);
-export default TestimonialsPage;
+export default withTranslateCompatibility(TestimonialsPageContent);

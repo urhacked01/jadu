@@ -51,16 +51,19 @@ export default function Bike3DViewer({ modelUrl, className = '', bikeImage }: Bi
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-[var(--primary)] text-white rounded-lg hover:bg-[var(--primary-dark)] transition-colors"
             >
-              <span className="mr-2">Customize & View in 3D</span>
+              <span className="mr-2">Customize &amp; View in 3D</span>
               <ExternalLink className="h-4 w-4" />
             </a>
             <p className="mt-4 text-sm text-gray-600">
-              Opens Hero MotoCorp's official 3D configurator in a new tab
+              Opens Hero MotoCorp&apos;s official 3D configurator in a new tab
             </p>
           </>
         ) : (
           <p className="text-gray-500">3D configurator not available for this model</p>
         )}
+        <p className="text-sm text-gray-500">
+          Click and drag to rotate. Scroll to zoom. Click &apos;Reset View&apos; to return to the default position.
+        </p>
       </div>
     </div>
   );

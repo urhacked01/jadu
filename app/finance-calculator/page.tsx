@@ -159,19 +159,6 @@ export default function FinanceCalculatorPage() {
   const [totalPayment, setTotalPayment] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
-  useEffect(() => {
-    setInterestRate(selectedCompany.interestRates.default);
-    setLoanAmount(
-      Math.max(selectedCompany.minLoanAmount, Math.min(loanAmount, selectedCompany.maxLoanAmount))
-    );
-    setTenure(Math.min(tenure, selectedCompany.maxTenure));
-    calculateEMI();
-  }, [selectedCompany]);
-
-  useEffect(() => {
-    calculateEMI();
-  }, [loanAmount, interestRate, tenure]);
-
   const calculateEMI = () => {
     const monthlyRate = interestRate / 12 / 100;
     const emi =
@@ -184,6 +171,18 @@ export default function FinanceCalculatorPage() {
     setTotalPayment(Math.round(totalPayment));
     setTotalInterest(Math.round(totalInterest));
   };
+
+  useEffect(() => {
+    setInterestRate(selectedCompany.interestRates.default);
+    setLoanAmount((prevAmount) =>
+      Math.max(selectedCompany.minLoanAmount, Math.min(prevAmount, selectedCompany.maxLoanAmount))
+    );
+    setTenure((prevTenure) => Math.min(prevTenure, selectedCompany.maxTenure));
+  }, [selectedCompany]);
+
+  useEffect(() => {
+    calculateEMI();
+  }, [loanAmount, interestRate, tenure, calculateEMI]);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
