@@ -1,26 +1,163 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #dc2626;
+  --primary-hover: #b91c1c;
+  --primary-light: #fef2f2;
+  --secondary: #4b5563;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--primary)] hover:bg-[var(--primary-hover)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-[var(--primary)] rounded-md shadow-sm text-sm font-medium text-[var(--primary)] bg-white hover:bg-[var(--primary-light)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary)] transition-colors duration-200;
+  }
+
+  .input-primary {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary)] focus:ring-[var(--primary)] sm:text-sm;
+  }
+
+  .select-primary {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-[var(--primary)] focus:ring-[var(--primary)] sm:text-sm;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+  top: 0 !important;
+  position: static !important;
+}
+
+/* Google Translate CSS fixes */
+/* Hide Google Translate top banner */
+.skiptranslate iframe,
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+/* Hide Google branding in dropdown */
+.goog-te-gadget span {
+  display: none !important;
+}
+
+/* Hide Google's default translate widget */
+#google_translate_element {
+  visibility: hidden !important;
+  height: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Fix font issues caused by Google Translate */
+.translated-ltr body * {
+  font-family: var(--font-inter), Arial, sans-serif !important;
+}
+
+/* Fix RTL layout issues for Arabic and other RTL languages */
+.translated-rtl .container-custom {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* Prevent unwanted translations */
+.notranslate {
+  direction: ltr !important;
+}
+
+/* Restore original styles for specific elements when translated */
+.translated-ltr .btn-primary,
+.translated-rtl .btn-primary {
+  font-weight: 600 !important;
+  padding: 0.5rem 1rem !important;
+}
+
+/* Custom language selector mobile styles */
+@media (max-width: 767px) {
+  .language-dropdown-mobile {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-height: 60vh !important;
+    border-radius: 1rem 1rem 0 0 !important;
+    box-shadow:
+      0 -4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 -2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    transform: none !important;
+    z-index: 60 !important;
+  }
+
+  .language-dropdown-mobile .language-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .language-dropdown-mobile .language-list {
+    max-height: calc(60vh - 60px) !important;
+    overflow-y: auto !important;
+  }
+
+  .language-dropdown-mobile .language-option {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* Fix for RTL languages in mobile view */
+.translated-rtl .language-dropdown-mobile {
+  direction: rtl !important;
+}
+
+/* Fix Google Translate hydration issues */
+.google-translate-active .date-display {
+  visibility: hidden;
+  position: relative;
+}
+
+.google-translate-active .date-display::after {
+  content: attr(data-date);
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* Date display classes for preventing hydration errors */
+.date-display {
+  position: relative;
+}
+
+.date-display[data-format='numeric'] {
+  font-variant-numeric: tabular-nums;
 }

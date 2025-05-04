@@ -1,0 +1,54 @@
+{
+  "name": "Dhanlaxmi Hero - Premium Two-Wheeler Dealership",
+  "short_name": "Dhanlaxmi Hero",
+  "description": "Your trusted partner for Hero, Harley-Davidson, and Vida electric vehicles. Explore our premium collection of bikes and scooters.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF6B00",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Bikes",
+      "short_name": "Bikes",
+      "description": "View our collection of bikes",
+      "url": "/bikes",
+      "icons": [
+        {
+          "src": "/icons/bike-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Find Showrooms",
+      "short_name": "Showrooms",
+      "description": "Locate our showrooms",
+      "url": "/showrooms",
+      "icons": [
+        {
+          "src": "/icons/showroom-icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}
